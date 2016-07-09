@@ -99,7 +99,16 @@ void Game::releaseControls()
 
 void Game::clearViewports()
 {
+	for(auto& vp : viewports)
+	{
+		delete vp;
+	}
 	viewports.clear();
+
+	for(auto& vp : spectatorViewports)
+	{
+		delete vp;
+	}
 	spectatorViewports.clear();
 }
 
@@ -146,6 +155,10 @@ void Game::drawSpectatorViewports(Renderer& renderer, GameState state, bool isRe
 
 void Game::clearWorms()
 {
+	for(auto& w : worms)
+	{
+		delete w;
+	}
 	worms.clear();
 }
 
@@ -738,6 +751,11 @@ void Game::postClone(Game& original, bool complete)
 		for (auto& vp : viewports)
 		{
 			vp = new Viewport(*vp);
+		}
+
+		for (auto& vp : spectatorViewports)
+		{
+			vp = new SpectatorViewport(*vp);
 		}
 	}
 
